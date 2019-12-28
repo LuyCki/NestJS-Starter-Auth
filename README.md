@@ -1,62 +1,57 @@
-```
-npm i -g @nestjs/cli
-npm install -g ts-node
-nest new peakit_nestjs
+# Getting started
 
-npm i --save @nestjsx/crud class-transformer class-validator
-npm i --save @nestjsx/crud-request
-npm i --save @nestjsx/crud-typeorm @nestjs/typeorm typeorm
-npm i --save @nestjs/swagger
-npm i --save swagger-ui-express
-npm install mysql --save
+## Installation
 
-nest g module users
-```
+Install dependencies
+    
+    npm install
 
-```
-// Create user.entity.ts, users.service.ts, users.controller.ts
-```
+----------
 
-```
-// Configure Swagger in main.ts
+## Database
 
- const swaggerOptions = new DocumentBuilder()
-    .setBasePath('/')
-    .build();
+The example codebase uses [Typeorm](http://typeorm.io/) with a mySQL database.
 
-  const document = SwaggerModule.createDocument(app, swaggerOptions);
-  SwaggerModule.setup(`/swagger`, app, document);
+Create a new mysql database
 
-```
+Set mysql database settings in ormconfig.json
 
-```
-// Configure TypeORM in src/app.module.ts
+    {
+      "type": "mysql",
+      "host": "localhost",
+      "port": 3306,
+      "username": "your-mysql-username",
+      "password": "your-mysql-password",
+      "database": "your-database-name",
+      "entities": ["src/**/**.entity{.ts,.js}"],
+      "synchronize": true
+    }
+    
+Start local mysql server.
 
-imports: [
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: '',
-      database: 'peakit',
-      entities: [__dirname + '/**/*.entity.ts,.js}'],
-      synchronize: true,
-    }),
-    ...
-]
-```
+On application start, tables for all entities will be created.
 
-### NestJS Docs
-https://docs.nestjs.com/
+----------
 
-### NestJS Swagger
-https://github.com/nestjs/swagger
+## Start application
 
-### NestJSX Crud
-* https://github.com/nestjsx/crud
-* https://www.npmjs.com/package/@nestjsx/crud-request
-* https://www.npmjs.com/package/@nestjsx/crud-typeorm
+- `npm start:dev`
+- Swagger at `http://localhost:3000/swagger`
 
-### Comprehensive article
-https://hackernoon.com/quick-and-easy-crud-with-nestjs-nestjsxcrud-and-testmace-t9cn313h
+----------
+
+## NPM scripts
+
+- `npm start` - Start application
+- `npm run start:dev` - Start application in development mode
+- `npm run start:debug` - Start application in debug mode
+- `npm run start:prod` - Build application
+
+----------
+
+# Authentication
+ 
+This applications uses JSON Web Token (JWT) to handle authentication. The token is passed with each request using the `Authorization` header with `Token` scheme. The JWT authentication middleware handles the validation and authentication of the token.
+
+----------
+ 

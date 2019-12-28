@@ -7,6 +7,7 @@ async function bootstrap() {
 
   const swaggerOptions = new DocumentBuilder()
     .setBasePath('/')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, swaggerOptions);
